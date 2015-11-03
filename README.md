@@ -9,6 +9,12 @@ Changing locations will lead to errors, as we set the packages accordingly.
 This code works perfectly on jdk 1.7 and above (will support few older versions as well)
 
 
+Setting up the project:
+
+Select the option "download zip" which is available at https://github.com/sivakiran33/Code-Analyzer.git
+That should download a zip file to the computer. Unzip the file to view files.
+
+
 How to run:
 
 In the project files, go to src\com\company
