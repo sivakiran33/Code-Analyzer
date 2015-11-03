@@ -1,0 +1,125 @@
+package com.company;
+
+
+public enum TokenType {
+
+
+	/*This class holds the definition of different types of Tokens */
+
+
+    //starts with any small letter and then any alphabet/number
+    FUNCTION_IDENTIFIER,
+
+    //starts with any capital letter and then any alphabet/number
+    VARIABLE_IDENTIFIER,
+
+    //Keywords
+
+
+    KEYWORD_PUBLIC,
+    KEYWORD_STATIC,
+    KEYWORD_VOID,
+    KEYWORD_MAIN,
+    KEYWORD_SYSTEM,
+    KEYWORD_OUT,
+    KEYWORD_PRINT,
+    KEYWORD_PRINTLN,
+    KEYWORD_SCANNER,
+    KEYWORD_NEW,
+    KEYWORD_IMPORT,
+    KEYWORD_DOT,
+
+    KEYWORD_IF,
+    KEYWORD_FOR,
+    KEYWORD_DO,
+
+
+    KEYWORD_WHILE,
+
+
+    KEYWORD_RETURN,
+
+    KEYWORD_ELSE,
+
+
+    // Other
+    SEMICOLON,
+
+    COMMA,
+
+    //any number
+    INTEGER_LITERAL,
+
+    // anything string within  double quotes
+    STRING_LITERAL,
+
+    //any single character within single quotes
+    CHAR_LITERAL,
+
+    ARROW_SYMBOL,
+
+    LEFT_ANGULAR_BRACKET,
+
+    RIGHT_ANGULAR_BRACKET,
+
+    LEFT_CURLY_BRACKET,
+
+    RIGHT_CURLY_BRACKET,
+
+
+    //Datatypes
+    //int
+    INT_DATATYPE,
+
+    //char
+    CHAR_DATATYPE,
+
+    //string
+    STRING_DATATYPE,
+
+    //bool
+    BOOL_DATATYPE,
+
+    LEFT_SQUARE_BRACKET,
+
+    RIGHT_SQUARE_BRACKET,
+
+    ASSIGNMENT_OPERATOR,
+
+    PIPE_SYMBOL,
+
+    AND_SYMBOL,
+
+    SYMBOL_LESS_THAN,
+
+    SYMBOL_MORE_THAN,
+
+    SYMBOL_LESS_THAN_EQUAL_TO,
+
+    SYMBOL_MORE_THAN_EQUAL_TO,
+
+    SYMBOL_EQUAL_TO,
+
+    SYMBOL_NOT_EQUAL_TO,
+
+    SYMBOL_PLUS,
+
+    SYMBOL_MINUS,
+
+    SYMBOL_MULTIPLY,
+
+    SYMBOL_DIVISION,
+
+    SYMBOL_PERCENTAGE,
+
+    SYMBOL_POWER,
+
+    LEFT_ROUND_BRACKET,
+
+    ARRAY_DATATYPE, ARRAYMETHOD_EQUALS, ARRAYMETHOD_FILL, ARRAYMETHOD_SORT, ARRAYMETHOD_TOSTRING, QUOTE, RIGHT_ROUND_BRACKET
+
+
+
+
+
+}
