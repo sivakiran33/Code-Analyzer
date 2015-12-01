@@ -4,18 +4,8 @@ package com.company;
 public enum TokenType {
 
 
-	/*This class holds the definition of different types of Tokens */
-
-
-    //starts with any small letter and then any alphabet/number
-    FUNCTION_IDENTIFIER,
-
-    //starts with any capital letter and then any alphabet/number
-    VARIABLE_IDENTIFIER,
-
-    //Keywords
-
-
+    FUNCTION,
+    VARIABLE,
     KEYWORD_PUBLIC,
     KEYWORD_STATIC,
     KEYWORD_VOID,
@@ -37,23 +27,21 @@ public enum TokenType {
     KEYWORD_WHILE,
 
 
-    KEYWORD_RETURN,
+    RETURN,
 
     KEYWORD_ELSE,
 
 
-    // Other
+
     SEMICOLON,
 
     COMMA,
 
-    //any number
     INTEGER_LITERAL,
 
-    // anything string within  double quotes
     STRING_LITERAL,
 
-    //any single character within single quotes
+
     CHAR_LITERAL,
 
     ARROW_SYMBOL,
@@ -67,17 +55,16 @@ public enum TokenType {
     RIGHT_CURLY_BRACKET,
 
 
-    //Datatypes
-    //int
+
     INT_DATATYPE,
 
-    //char
+
     CHAR_DATATYPE,
 
-    //string
+
     STRING_DATATYPE,
 
-    //bool
+
     BOOL_DATATYPE,
 
     LEFT_SQUARE_BRACKET,
@@ -86,7 +73,6 @@ public enum TokenType {
 
     ASSIGNMENT_OPERATOR,
 
-    PIPE_SYMBOL,
 
     AND_SYMBOL,
 
@@ -94,9 +80,6 @@ public enum TokenType {
 
     SYMBOL_MORE_THAN,
 
-    SYMBOL_LESS_THAN_EQUAL_TO,
-
-    SYMBOL_MORE_THAN_EQUAL_TO,
 
     SYMBOL_EQUAL_TO,
 
@@ -116,7 +99,9 @@ public enum TokenType {
 
     LEFT_ROUND_BRACKET,
 
-    ARRAY_DATATYPE, ARRAYMETHOD_EQUALS, ARRAYMETHOD_FILL, ARRAYMETHOD_SORT, ARRAYMETHOD_TOSTRING, QUOTE, RIGHT_ROUND_BRACKET
+    ARRAY_DATATYPE, ARRAYMETHOD_EQUALS, ARRAYMETHOD_FILL, ARRAYMETHOD_SORT,
+    ARRAYMETHOD_TOSTRING, QUOTE, METHOD, KEYWORD, RIGHT_ROUND_BRACKET
+
 
 
 

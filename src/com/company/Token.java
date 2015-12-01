@@ -25,7 +25,6 @@ public class Token {
         this.token = token;
     }
 
-    //getters and setters
 
 }
 

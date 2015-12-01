@@ -9,55 +9,37 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CreateTokens {
+public class TokenCreator {
+    //static int numberOfTokens=0;
     public static void createTokens()
     {
 
-        //accepting file path from the user
-        //System.out.println(" enter complete path:  ");
-        //Scanner user_input=new Scanner(System.in);
-        //String filePath=user_input.next();
+        File inputFile = new File("test.java");
+        FileInputStream fileInputStream;
+        String sourceContent=null;
 
-
-        //A SAMPLE PATH is -> D:\\code.txt
-
-        //Extracting data from the file in string format
-        //File file = new File(filePath);
-        File inputfile = new File("file.txt");
-        FileInputStream fileInputStream = null;
-        String dataFromFile=null;
         try {
-            fileInputStream = new FileInputStream(inputfile);
-            byte[] buffer = new byte[(int)inputfile.length()];
+            fileInputStream = new FileInputStream(inputFile);
+            byte[] buffer = new byte[(int)inputFile.length()];
             new DataInputStream(fileInputStream).readFully(buffer);
             fileInputStream.close();
-            dataFromFile =new String(buffer, "UTF-8");
-
-            System.out.println("The input code is as follows: \n"+dataFromFile+"\n");
+            sourceContent =new String(buffer, "UTF-8");
         }
         catch(IOException e)
         {
             System.out.println("Error in retrieving the file.");
             e.printStackTrace();
             System.exit(0);
-
         }
 
 
         ArrayList<Token> tokenList=new ArrayList<Token>();
 
 
-        System.out.println("\nToken List Of Given File \n");
-        String code=dataFromFile;
-
-
-        //Following Array list will contain all the regular expressions for the Tokens used the our Language
-
-
+        System.out.println("\n Token List Of Given File \n");
+        String source=sourceContent;
         ArrayList<TokenData> dataArrayList=new ArrayList<TokenData>();
 
-
-        //List of keywords
 
         dataArrayList.add(new TokenData(Pattern.compile("^(public)"),TokenType.KEYWORD_PUBLIC));
         dataArrayList.add(new TokenData(Pattern.compile("^(static)"),TokenType.KEYWORD_STATIC));
@@ -70,18 +52,18 @@ public class CreateTokens {
         dataArrayList.add(new TokenData(Pattern.compile("^(Scanner)"),TokenType.KEYWORD_SCANNER));
         dataArrayList.add(new TokenData(Pattern.compile("^(new)"),TokenType.KEYWORD_NEW));
         dataArrayList.add(new TokenData(Pattern.compile("^(import)"),TokenType.KEYWORD_IMPORT));
-        dataArrayList.add(new TokenData(Pattern.compile("^(.)"),TokenType.KEYWORD_DOT));
+        dataArrayList.add(new TokenData(Pattern.compile("^(.)"),TokenType.KEYWORD));
 
 
 
         dataArrayList.add(new TokenData(Pattern.compile("^(if)"),TokenType.KEYWORD_IF));
         dataArrayList.add(new TokenData(Pattern.compile("^(while)"),TokenType.KEYWORD_WHILE));
-        dataArrayList.add(new TokenData(Pattern.compile("^(return)"),TokenType.KEYWORD_RETURN));
+        dataArrayList.add(new TokenData(Pattern.compile("^(return)"),TokenType.RETURN));
         dataArrayList.add(new TokenData(Pattern.compile("^(else)"),TokenType.KEYWORD_ELSE));
         dataArrayList.add(new TokenData(Pattern.compile("^(do)"),TokenType.KEYWORD_DO));
         dataArrayList.add(new TokenData(Pattern.compile("^(for)"),TokenType.KEYWORD_FOR));
 
-        //Datatypes
+
 
         dataArrayList.add(new TokenData(Pattern.compile("^(int)"),TokenType.INT_DATATYPE));
         dataArrayList.add(new TokenData(Pattern.compile("^(char)"),TokenType.CHAR_DATATYPE));
@@ -90,7 +72,7 @@ public class CreateTokens {
         dataArrayList.add(new TokenData(Pattern.compile("^(array)"),TokenType.ARRAY_DATATYPE));
 
 
-        //Methods of Array Class
+
 
 
         dataArrayList.add(new TokenData(Pattern.compile("^(equals)"),TokenType.ARRAYMETHOD_EQUALS));
@@ -102,16 +84,17 @@ public class CreateTokens {
 
 
 
-        //Variables and methods
 
-        dataArrayList.add(new TokenData(Pattern.compile("^([A-Z][a-zA-Z0-9]*)"),TokenType.VARIABLE_IDENTIFIER));
-        dataArrayList.add(new TokenData(Pattern.compile("^([a-z][a-zA-Z0-9]*)"),TokenType.FUNCTION_IDENTIFIER));
+
+        dataArrayList.add(new TokenData(Pattern.compile("^([A-Z][a-zA-Z0-9]*)"),TokenType.FUNCTION));
+        dataArrayList.add(new TokenData(Pattern.compile("^([a-z][a-zA-Z0-9]*)"),TokenType.VARIABLE));
+        dataArrayList.add(new TokenData(Pattern.compile("^([a-z][a-zA-Z0-9]* \\()"),TokenType.METHOD));
 
         dataArrayList.add(new TokenData(Pattern.compile("^((-)?[0-9]+)"),TokenType.INTEGER_LITERAL));
         dataArrayList.add(new TokenData(Pattern.compile("^(\".*\")"),TokenType.STRING_LITERAL));
         dataArrayList.add(new TokenData(Pattern.compile("^('.')"),TokenType.CHAR_LITERAL));
 
-        //Symbols
+
 
 
         dataArrayList.add(new TokenData(Pattern.compile("^(;)"),TokenType.SEMICOLON));
@@ -126,7 +109,6 @@ public class CreateTokens {
         dataArrayList.add(new TokenData(Pattern.compile("^(\\[)"),TokenType.LEFT_SQUARE_BRACKET));
         dataArrayList.add(new TokenData(Pattern.compile("^(\\])"),TokenType.RIGHT_SQUARE_BRACKET));
         dataArrayList.add(new TokenData(Pattern.compile("^(:=)"),TokenType.ASSIGNMENT_OPERATOR));
-        dataArrayList.add(new TokenData(Pattern.compile("^(|)"),TokenType.PIPE_SYMBOL));
         dataArrayList.add(new TokenData(Pattern.compile("^(&)"),TokenType.AND_SYMBOL));
         dataArrayList.add(new TokenData(Pattern.compile("^(>)"),TokenType.SYMBOL_MORE_THAN));
         dataArrayList.add(new TokenData(Pattern.compile("^(<)"),TokenType.SYMBOL_LESS_THAN));
@@ -142,72 +124,85 @@ public class CreateTokens {
 
 
 
-
-
-
-
-        //erroneousString will contain the part of the code which is erroneous and can not be parsed
         String erroneousString=null;
+        //int counterMethods = 0;
+        //int counterReturns = 0;
+        int i=0;
 
-        //Parse until no string remains to be parsed
-        while(!code.isEmpty())
+        while(!source.isEmpty())
         {
-            if(code.startsWith(" "))
+            if(source.startsWith(" "))
             {
-                code=code.trim();//removing blank spaces from code
+                source=source.trim();
             }
 
 
-            //removing \n, \r, \t from  code
-            code = code.replaceAll("\\r|\\n|\\t", "");
+            source = source.replaceAll("\\r|\\n|\\t", "");
 
-            //By the end of trying all the regular expression , the matcherMax object will hold the data of the
-            //match of maximum length .
-            Matcher matcherMax=null;
-            int max_len=0;//this will hold the length of the match of maximum length
-            TokenData tokenDataMax=null;//This is token data for the maximum match
+            Matcher compare=null;
+            int max_len=0;
+            TokenData tokenData=null;
 
-            //Now following loop will try all the regular expressions present in the dataArrayList list .
+
             for(TokenData data : dataArrayList)
             {
-                Matcher matcher=data.getPattern().matcher(code);
+                Matcher matcher=data.getPattern().matcher(source);
 
                 if(matcher.find())
                 {
                     String token=matcher.group().trim();
                     int len=token.length();
-                    if(len>max_len)//if this match is greater than maximum match till now, then set this as the maximum match
+                    if(len>max_len)
                     {
                         max_len=len;
-                        matcherMax=matcher;
-                        tokenDataMax=data;
+                        compare=matcher;
+                        tokenData=data;
                     }
                 }
 
-            }//end of iteration over dataArrayList list
+            }
 
-            //condition when some match is found
-            if(matcherMax!=null)
+            if(compare!=null)
             {
-                String token=matcherMax.group().trim();
-                System.out.println("Token type- "+tokenDataMax.getType().name()+"  Token is-  "+ token);
+                String token=compare.group().trim();
+                System.out.println(tokenData.typeOfToken().name()+" : "+ token);
 
-                //Removing the matched string from the code
-                code=matcherMax.replaceFirst("");
+               // numberOfTokens++;
 
-                //adding this token in the list
-                Token tempToken=new Token(tokenDataMax.getType().name(),token);
+
+                    CodeAnalyzer.elements[i]=tokenData.typeOfToken().name();
+
+
+
+
+               // if(tokenData.typeOfToken().name()=="METHOD"){
+                 //   counterMethods++;
+                   // System.out.println(counterMethods);
+                //}
+                //if(tokenData.typeOfToken().name()=="RETURN"){
+                  //  counterReturns++;
+                    //System.out.println(counterReturns);
+                //}
+
+
+                source=compare.replaceFirst("");
+
+                Token tempToken=new Token(tokenData.typeOfToken().name(),token);
                 tokenList.add(tempToken);
+
+
+
             }
             else
             {
-                //setting the erroneousString in case no match is found
-                erroneousString=code;
+                erroneousString=source;
                 break;
             }
 
 
-        }//end of while
+        i++;
+        }
+
 
         if(erroneousString!=null)
         {
@@ -216,8 +211,11 @@ public class CreateTokens {
             Token tempToken=new Token("Error","Error");
             tokenList.add(tempToken);
         }
+        //if(counterReturns<counterMethods){
+          //  System.out.println("CHECK CODE! NOT ALL RETURNING METHODS ARE BEING USED!");
+        //}
 
 
-    }//end of function createTokens
+    }
 
 }
