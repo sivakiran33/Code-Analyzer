@@ -17,6 +17,8 @@ That should download a zip file to the computer. Unzip the file to view files.
 
 How to run:
 
+The development must be test driven. So, make sure that all the methods have a space before opening the brackets.
+
 In the project files, go to src\com\company
 Compile the file named CodeAnalyzer.java
 The code should compile with no errors and display the output.
