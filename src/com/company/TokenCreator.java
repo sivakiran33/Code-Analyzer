@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TokenCreator {
-    //static int numberOfTokens=0;
+
     public static void createTokens()
     {
 
@@ -33,8 +33,6 @@ public class TokenCreator {
         }
 
 
-
-        System.out.println("\n Token List Of Given File \n");
         String source=sourceContent;
         ArrayList<TokenData> dataArrayList=new ArrayList<>();
 
@@ -121,7 +119,7 @@ public class TokenCreator {
 
                 if(matcher.find())
                 {
-                    String token=matcher.group().trim();
+                    String token = matcher.group().trim();
                     int len=token.length();
                     if(len>max_len)
                     {
@@ -147,7 +145,7 @@ public class TokenCreator {
         i++;
         }
 
-        System.out.println(i);
+       // System.out.println(i);
     }
 
 }
