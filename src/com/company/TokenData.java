@@ -6,23 +6,23 @@ import java.util.regex.Pattern;
 public class TokenData {
 
 
-    private Pattern pattern;
-    private TokenType type;
+    private Pattern tokenWords;
+    private TokenType tokenType;
 
-    public TokenData(Pattern pattern,TokenType type)
+    public TokenData(Pattern tokenWords, TokenType tokenType)
     {
-        this.pattern=pattern;
-        this.type=type;
+        this.tokenWords = tokenWords;
+        this.tokenType = tokenType;
     }
 
-    public Pattern getPattern()
+    public Pattern getTokenWords()
     {
-        return pattern;
+        return tokenWords;
     }
 
     public TokenType typeOfToken()
     {
-        return type;
+        return tokenType;
     }
 
 }

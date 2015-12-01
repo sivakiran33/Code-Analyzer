@@ -33,12 +33,10 @@ public class TokenCreator {
         }
 
 
-        ArrayList<Token> tokenList=new ArrayList<Token>();
-
 
         System.out.println("\n Token List Of Given File \n");
         String source=sourceContent;
-        ArrayList<TokenData> dataArrayList=new ArrayList<TokenData>();
+        ArrayList<TokenData> dataArrayList=new ArrayList<>();
 
 
         dataArrayList.add(new TokenData(Pattern.compile("^(public)"),TokenType.KEYWORD_PUBLIC));
@@ -53,50 +51,27 @@ public class TokenCreator {
         dataArrayList.add(new TokenData(Pattern.compile("^(new)"),TokenType.KEYWORD_NEW));
         dataArrayList.add(new TokenData(Pattern.compile("^(import)"),TokenType.KEYWORD_IMPORT));
         dataArrayList.add(new TokenData(Pattern.compile("^(.)"),TokenType.KEYWORD));
-
-
-
         dataArrayList.add(new TokenData(Pattern.compile("^(if)"),TokenType.KEYWORD_IF));
         dataArrayList.add(new TokenData(Pattern.compile("^(while)"),TokenType.KEYWORD_WHILE));
         dataArrayList.add(new TokenData(Pattern.compile("^(return)"),TokenType.RETURN));
         dataArrayList.add(new TokenData(Pattern.compile("^(else)"),TokenType.KEYWORD_ELSE));
         dataArrayList.add(new TokenData(Pattern.compile("^(do)"),TokenType.KEYWORD_DO));
         dataArrayList.add(new TokenData(Pattern.compile("^(for)"),TokenType.KEYWORD_FOR));
-
-
-
         dataArrayList.add(new TokenData(Pattern.compile("^(int)"),TokenType.INT_DATATYPE));
         dataArrayList.add(new TokenData(Pattern.compile("^(char)"),TokenType.CHAR_DATATYPE));
         dataArrayList.add(new TokenData(Pattern.compile("^(String)"),TokenType.STRING_DATATYPE));
         dataArrayList.add(new TokenData(Pattern.compile("^(bool)"),TokenType.BOOL_DATATYPE));
         dataArrayList.add(new TokenData(Pattern.compile("^(array)"),TokenType.ARRAY_DATATYPE));
-
-
-
-
-
         dataArrayList.add(new TokenData(Pattern.compile("^(equals)"),TokenType.ARRAYMETHOD_EQUALS));
         dataArrayList.add(new TokenData(Pattern.compile("^(fill)"),TokenType.ARRAYMETHOD_FILL));
         dataArrayList.add(new TokenData(Pattern.compile("^(sort)"),TokenType.ARRAYMETHOD_SORT));
         dataArrayList.add(new TokenData(Pattern.compile("^(toString)"),TokenType.ARRAYMETHOD_TOSTRING));
-
-
-
-
-
-
-
         dataArrayList.add(new TokenData(Pattern.compile("^([A-Z][a-zA-Z0-9]*)"),TokenType.FUNCTION));
         dataArrayList.add(new TokenData(Pattern.compile("^([a-z][a-zA-Z0-9]*)"),TokenType.VARIABLE));
         dataArrayList.add(new TokenData(Pattern.compile("^([a-z][a-zA-Z0-9]* \\()"),TokenType.METHOD));
-
         dataArrayList.add(new TokenData(Pattern.compile("^((-)?[0-9]+)"),TokenType.INTEGER_LITERAL));
         dataArrayList.add(new TokenData(Pattern.compile("^(\".*\")"),TokenType.STRING_LITERAL));
         dataArrayList.add(new TokenData(Pattern.compile("^('.')"),TokenType.CHAR_LITERAL));
-
-
-
-
         dataArrayList.add(new TokenData(Pattern.compile("^(;)"),TokenType.SEMICOLON));
         dataArrayList.add(new TokenData(Pattern.compile("^(')"),TokenType.QUOTE));
         dataArrayList.add(new TokenData(Pattern.compile("^(,)"),TokenType.COMMA));
@@ -123,10 +98,6 @@ public class TokenCreator {
         dataArrayList.add(new TokenData(Pattern.compile("^(->)"),TokenType.ARROW_SYMBOL));
 
 
-
-        String erroneousString=null;
-        //int counterMethods = 0;
-        //int counterReturns = 0;
         int i=0;
 
         while(!source.isEmpty())
@@ -146,7 +117,7 @@ public class TokenCreator {
 
             for(TokenData data : dataArrayList)
             {
-                Matcher matcher=data.getPattern().matcher(source);
+                Matcher matcher=data.getTokenWords().matcher(source);
 
                 if(matcher.find())
                 {
@@ -159,43 +130,16 @@ public class TokenCreator {
                         tokenData=data;
                     }
                 }
-
             }
 
             if(compare!=null)
             {
-                String token=compare.group().trim();
-                System.out.println(tokenData.typeOfToken().name()+" : "+ token);
-
-               // numberOfTokens++;
-
-
-                    CodeAnalyzer.elements[i]=tokenData.typeOfToken().name();
-
-
-
-
-               // if(tokenData.typeOfToken().name()=="METHOD"){
-                 //   counterMethods++;
-                   // System.out.println(counterMethods);
-                //}
-                //if(tokenData.typeOfToken().name()=="RETURN"){
-                  //  counterReturns++;
-                    //System.out.println(counterReturns);
-                //}
-
-
+                CodeAnalyzer.elements[i]=tokenData.typeOfToken().name();
                 source=compare.replaceFirst("");
-
-                Token tempToken=new Token(tokenData.typeOfToken().name(),token);
-                tokenList.add(tempToken);
-
-
-
             }
+
             else
             {
-                erroneousString=source;
                 break;
             }
 
@@ -203,19 +147,7 @@ public class TokenCreator {
         i++;
         }
 
-
-        if(erroneousString!=null)
-        {
-            System.out.println("Code with error is -> "+ erroneousString);
-            System.out.println("\n Parsing aborted !! Please fix this error.");
-            Token tempToken=new Token("Error","Error");
-            tokenList.add(tempToken);
-        }
-        //if(counterReturns<counterMethods){
-          //  System.out.println("CHECK CODE! NOT ALL RETURNING METHODS ARE BEING USED!");
-        //}
-
-
+        System.out.println(i);
     }
 
 }
