@@ -10,6 +10,7 @@ public class test {
 
         System.out.println(add (num1,num2));
         int Map;
+        int Entry;
 
     }
 

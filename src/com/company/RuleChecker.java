@@ -21,7 +21,7 @@ public class RuleChecker {
         int countMethods=0;
         int successiveMethods=0;
         int countReturns=0;
-        boolean isMethod=false;
+        boolean isMethod=false;     //Can be used to improve accuracy of the rule test.
         boolean isReturn=false;
 
         for(int i=0; i<CodeAnalyzer.numberOfElements;i++){

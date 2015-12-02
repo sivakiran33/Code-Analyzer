@@ -53,9 +53,6 @@ public class CodeAnalyzer {
         for (int i=0;i<10000;i++) {
 
             if(elements[i]!=null) {
-
-               // System.out.println(elements[i]);
-               // System.out.println(elementsValues[i]);
                 numberOfElements++;
             }
 
